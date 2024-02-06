@@ -9,6 +9,16 @@ public class HighScore : MonoBehaviour
 {
     static public int score = 1000;
 
+    void Awake()
+    {
+        if (PlayerPrefs.HasKey("ApplePickerHighScore"))
+        {
+            score = PlayerPrefs.GetInt("ApplePickerHighScore");
+        }
+
+        PlayerPrefs.SetInt("ApplePickerHighScore", score);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +30,10 @@ public class HighScore : MonoBehaviour
     {
         TMP_Text gt = this.GetComponent<TMP_Text>();
         gt.text = "High Score: " + score;
+
+        if (score > PlayerPrefs.GetInt("ApplePickerHighScore"))
+        {
+            PlayerPrefs.SetInt("ApplePickerHighScore", score);
+        }
     }
 }

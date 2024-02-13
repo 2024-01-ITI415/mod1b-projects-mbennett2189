@@ -9,7 +9,7 @@ public class Slingshot : MonoBehaviour
     public float velocityMult = 10f;
 
     [Header("Dynamic")]
-    public GameObject lauchPoint;
+    public GameObject launchPoint;
     public Vector3 launchPos;
     public GameObject projectile;
     public bool aimingMode;
@@ -17,19 +17,21 @@ public class Slingshot : MonoBehaviour
     private void Awake()
     {
         Transform launchPointTrans = transform.Find("LaunchPoint");
-        lauchPoint = launchPointTrans.gameObject;
-        lauchPoint.SetActive(false);
+        launchPoint = launchPointTrans.gameObject;
+        launchPoint.SetActive(false);
         launchPos = launchPointTrans.position;
     }
 
     private void OnMouseEnter()
     {
-        print("Slingshot:OnMouseEnter()");
+        //print("Slingshot:OnMouseEnter()");
+        launchPoint.SetActive(true);
     }
 
     private void OnMouseExit()
     {
-        print("Slingshot:OnMouseExit()");
+        //print("Slingshot:OnMouseExit()");
+        launchPoint.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -42,7 +44,7 @@ public class Slingshot : MonoBehaviour
 
     private void Update()
     {
-        if (!aimingMode) return;
+        if(!aimingMode) return;
 
         Vector3 mousePos2D = Input.mousePosition;
         mousePos2D.z = -Camera.main.transform.position.z;

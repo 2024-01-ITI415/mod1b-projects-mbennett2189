@@ -15,13 +15,18 @@ public class BallControls : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
-    public bool ballIsOnGround = true;
+    private bool ballIsOnGround = true;
+    private int bottomY = -30;
+    private Vector3 originalPOS;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+
+        originalPOS = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
 
         SetCountText();
         winTextObject.SetActive(false);
@@ -67,6 +72,11 @@ public class BallControls : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             ballIsOnGround = false;
+        }
+
+        if (transform.position.y < bottomY)
+        {
+            gameObject.transform.position = originalPOS;
         }
     }
 

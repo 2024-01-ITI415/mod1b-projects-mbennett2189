@@ -4,33 +4,13 @@ using UnityEngine;
 
 public class FollowBall : MonoBehaviour
 {
-    static private FollowBall S;
-    static public GameObject Ball;
+    public float followSpeed = 2f;
+    public float yOffSet = 1f;
+    public Transform ball;
 
-
-    [Header("Inscribed")]
-    public Vector2 minXY = Vector2.zero;
-
-    [Header("Dynamic")]
-    public float camZ;
-
-    void Awake()
+    private void Update()
     {
-        S = this;
-        camZ = this.transform.position.z;
-    }
-
-    void FixedUpdate()
-    {
-        Vector3 destination = Vector3.zero;
-
-        destination.x = Mathf.Max(minXY.x, destination.x);
-        destination.y = Mathf.Max(minXY.y, destination.y);
-
-        destination.z = camZ;
-
-        transform.position = destination;
-
-        
+        Vector3 newPOS = new Vector3(ball.position.x, ball.position.y + yOffSet, -10f);
+        transform.position = Vector3.Slerp(transform.position, newPOS, followSpeed * Time.deltaTime);
     }
 }

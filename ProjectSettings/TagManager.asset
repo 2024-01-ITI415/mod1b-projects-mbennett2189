@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Apple
   - Floor
+  - PickUp
+  - Goal
   layers:
   - Default
   - TransparentFX

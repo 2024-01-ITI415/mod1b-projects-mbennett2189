@@ -18,6 +18,7 @@ public class BallControls : MonoBehaviour
     private bool ballIsOnGround = true;
     private int bottomY = -30;
     private Vector3 originalPOS;
+    public bool goal = false;
 
 
     // Start is called before the first frame update
@@ -28,7 +29,6 @@ public class BallControls : MonoBehaviour
 
         originalPOS = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
 
-        SetCountText();
         winTextObject.SetActive(false);
     }
     void OnMove(InputValue movementValue)
@@ -39,14 +39,6 @@ public class BallControls : MonoBehaviour
         movementY = movementVector.y;
     }
 
-    void SetCountText()
-    {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 13)
-        {
-            winTextObject.SetActive(true);
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -64,6 +56,11 @@ public class BallControls : MonoBehaviour
 
             SetCountText();
         }
+
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            goal = true;
+        }
     }
 
     private void Update()
@@ -78,6 +75,11 @@ public class BallControls : MonoBehaviour
         {
             gameObject.transform.position = originalPOS;
         }
+
+        if (goal == true)
+        {
+            winTextObject.SetActive(true);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -86,5 +88,12 @@ public class BallControls : MonoBehaviour
         {
             ballIsOnGround = true;
         }
+    }
+
+    void SetCountText()
+    {
+        // countText.text = "Count: " + count.ToString();
+
+        
     }
 }
